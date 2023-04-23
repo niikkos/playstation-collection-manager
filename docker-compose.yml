@@ -8,10 +8,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: niikkos
-      MYSQL_DATABASE: mysql
-      MYSQL_USER: niikkos
-      MYSQL_PASSWORD: niikkos
+      MYSQL_ROOT_PASSWORD: you
+      MYSQL_DATABASE: playstation-collection-manager
+      MYSQL_USER: you
+      MYSQL_PASSWORD: you
     ports:
       - "3306:3306"
 
@@ -29,6 +29,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - ./etc/docker/php-fpm/php.ini:/etc/php/8.2/fpm/conf.d/50-setting.ini
 
 volumes:
   db_data: {}
