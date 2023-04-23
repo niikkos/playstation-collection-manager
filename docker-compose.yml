@@ -18,8 +18,8 @@ services:
   webserver:
     image: nginx:alpine
     working_dir: /var/www/html
-#    volumes:
-#      - .:/var/www/html:cached
+    volumes:
+      - .:/var/www/html:cached
     ports:
       - "80:80"
 
@@ -27,8 +27,8 @@ services:
     build:
       context: etc/docker/php-fpm
     working_dir: /var/www/html
-#    volumes:
-#      - .:/var/www/html
+    volumes:
+      - .:/var/www/html
 
 volumes:
   db_data: {}
