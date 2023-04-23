@@ -2,11 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\PlayStationGameRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PlayStationGameRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'playstation-game:item']),
+        new GetCollection(normalizationContext: ['groups' => 'playstation-game:list'])
+    ],
+    order: ['title' => 'ASC'],
+    paginationEnabled: false,
+)]
 class PlayStationGame
 {
     #[ORM\Id]
@@ -15,12 +26,15 @@ class PlayStationGame
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['playstation-game:list', 'playstation-game:item'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['playstation-game:list', 'playstation-game:item'])]
     private ?string $platform = null;
 
     #[ORM\Column]
+    #[Groups(['playstation-game:list', 'playstation-game:item'])]
     private ?bool $platinumTrophyObtained = null;
 
     public function getId(): ?int
